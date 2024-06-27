@@ -73,7 +73,19 @@ def main(data_folder, output_folder):
     topic_assignments = match_comments_to_topics(lda, vectorizer, documents, user_defined_topics, matching_threshold)
     save_results_to_folders(topic_assignments, output_folder)
 
-# 使用示例
+# 使用示例数据格式要求
+# 文件格式：
+
+# 评论数据应以文本文件（.txt）的形式存储在指定的文件夹中。
+# 每个评论应单独存储在一个文本文件中，以便程序逐个读取和处理。
+# 文件命名：
+
+# # 文本文件可以按任意命名规则命名，如comment1.txt, comment2.txt等，确保文件扩展名为.txt。
+# # 内容格式：
+# 
+# # 每个文本文件应包含一条完整的评论。确保评论文本清晰且无多余的格式字符（如HTML标签、特殊字符等）。
+# # 文本应为纯文本格式，避免使用复杂的格式（如富文本格式）。
+
 data_folder = "path_to_comments_folder"
 output_folder = "path_to_output_folder"
 main(data_folder, output_folder)
