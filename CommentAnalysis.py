@@ -17,16 +17,19 @@ def preprocess(text):
 # 用户输入的主题和匹配度门槛
 user_defined_topics = ["plot", "special effects", "acting", "costume design"]
 matching_threshold = 0.1  # 用户可以设置的匹配度门槛
-convolution_window_size = 70  # 卷积窗口大小
+convolution_window_size = 50  # 卷积窗口大小
 topic_presence_threshold = 2  # 模糊阈值
 
 # 检测垃圾评论
 def is_garbage(text):
     return len(text.split()) < 5  # 评论少于5个单词被认为是垃圾评论
 
-# 读取CSV数据
+# 读取CSV数据并处理编码问题
 def load_data(csv_file, sample_size=None):
-    df = pd.read_csv(csv_file)
+    try:
+        df = pd.read_csv(csv_file, encoding='utf-8')
+    except UnicodeDecodeError:
+        df = pd.read_csv(csv_file, encoding='latin1')
     if sample_size:
         df = df.head(sample_size)
     return df
@@ -220,7 +223,7 @@ def main(input_csv, output_csv, sample_size=None):
 
 # 使用示例
 if __name__ == "__main__":
-    input_csv = "IMDB Dataset.csv"  # 输入CSV文件路径
+    input_csv = "IMDB Dataset big.csv"  # 输入CSV文件路径
     output_csv = "IMDB Dataset with categories and sentiments.csv"  # 输出CSV文件路径
     sample_size = 500  # 处理的样本数量，设置为None处理所有数据
     main(input_csv, output_csv, sample_size)
