@@ -17,8 +17,8 @@ def preprocess(text):
 # 用户输入的主题和匹配度门槛
 user_defined_topics = ["plot", "special effects", "acting", "costume design"]
 matching_threshold = 0.1  # 用户可以设置的匹配度门槛
-convolution_window_size = 50  # 卷积窗口大小
-topic_presence_threshold = 5  # 模糊阈值
+convolution_window_size = 70  # 卷积窗口大小
+topic_presence_threshold = 2  # 模糊阈值
 
 # 检测垃圾评论
 def is_garbage(text):
@@ -46,16 +46,12 @@ def lda_topic_extraction(preprocessed_docs, num_topics):
 # 情感分析
 def analyze_sentiment(text):
     analysis = TextBlob(text)
-    if analysis.sentiment.polarity > 0.5:
-        return "Very Positive"
-    elif analysis.sentiment.polarity > 0:
+    if analysis.sentiment.polarity >= 0.11:
         return "Positive"
-    elif analysis.sentiment.polarity == 0:
-        return "Neutral"
-    elif analysis.sentiment.polarity > -0.5:
+    elif analysis.sentiment.polarity <= -0.11:
         return "Negative"
     else:
-        return "Very Negative"
+        return "Unclassified"
 
 # 匹配评论到主题并进行情感分析
 def match_and_analyze_comments(lda, vectorizer, documents, user_defined_topics, matching_threshold):
@@ -152,14 +148,10 @@ def generate_sentiment_plot(df):
     for topic in user_defined_topics:
         topic_sentiments = df[topic]
         for sentiment in topic_sentiments:
-            if sentiment == "Very Positive":
-                sentiment_score[topic] += 2
-            elif sentiment == "Positive":
+            if sentiment == "Positive":
                 sentiment_score[topic] += 1
             elif sentiment == "Negative":
                 sentiment_score[topic] -= 1
-            elif sentiment == "Very Negative":
-                sentiment_score[topic] -= 2
 
     plt.bar(sentiment_score.keys(), sentiment_score.values())
     plt.xlabel('Topics')
