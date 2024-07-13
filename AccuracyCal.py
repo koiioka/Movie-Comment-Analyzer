@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 class AccuracyCalculator:
     def __init__(self, csv_file):
         self.df = pd.read_csv(csv_file)
-        self.user_defined_topics = ["plot", "special effects", "acting", "costume design"]
+        self.user_defined_topics = ["plot", "soundtrack","Mars","actor"]
 
     def calculate_accuracy(self):
         correct_predictions = 0

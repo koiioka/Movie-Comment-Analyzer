@@ -15,10 +15,10 @@ def preprocess(text):
     return ' '.join([token.lemma_ for token in doc if not token.is_stop and not token.is_punct])
 
 # 用户输入的主题和匹配度门槛
-user_defined_topics = ["plot", "special effects", "acting", "costume design"]
+user_defined_topics = ["Mars", "plot", "soundtrack", "actor"]
 matching_threshold = 0.1  # 用户可以设置的匹配度门槛
-convolution_window_size = 50  # 卷积窗口大小
-topic_presence_threshold = 2  # 模糊阈值
+convolution_window_size = 500  # 卷积窗口大小
+topic_presence_threshold = 50  # 模糊阈值
 
 # 检测垃圾评论
 def is_garbage(text):
@@ -225,5 +225,5 @@ def main(input_csv, output_csv, sample_size=None):
 if __name__ == "__main__":
     input_csv = "IMDB Dataset big.csv"  # 输入CSV文件路径
     output_csv = "IMDB Dataset with categories and sentiments.csv"  # 输出CSV文件路径
-    sample_size = 500  # 处理的样本数量，设置为None处理所有数据
+    sample_size = 5000  # 处理的样本数量，设置为None处理所有数据
     main(input_csv, output_csv, sample_size)
