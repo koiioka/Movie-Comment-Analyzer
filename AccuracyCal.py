@@ -16,7 +16,7 @@ class AccuracyCalculator:
                 detected_sentiment = row[topic]
                 if detected_sentiment != "Unclassified":
                     total_predictions += 1
-                    if detected_sentiment.lower() == original_sentiment.lower():  # 比较时忽略大小写
+                    if detected_sentiment.lower() == original_sentiment.lower():  
                         correct_predictions += 1
 
         accuracy = correct_predictions / total_predictions if total_predictions > 0 else 0
@@ -24,19 +24,19 @@ class AccuracyCalculator:
 
     def generate_accuracy_plot(self, accuracy, total_predictions):
         plt.bar(['Accuracy'], [accuracy])
-        plt.ylim(0, 1)  # 设置y轴范围为0到1
+        plt.ylim(0, 1)  
         plt.xlabel('Metric')
         plt.ylabel('Rate')
         plt.title(f'Sentiment Analysis Accuracy (Total Predictions: {total_predictions})')
         plt.show()
 
-# 使用示例
+
 if __name__ == "__main__":
-    file_path = "IMDB Dataset with categories and sentiments.csv"  # 确保文件路径正确
+    file_path = "Withc.csv" 
     accuracy_calculator = AccuracyCalculator(file_path)
     accuracy, total_predictions = accuracy_calculator.calculate_accuracy()
     print(f"Sentiment Analysis Accuracy: {accuracy:.2%}")
     print(f"Total Predictions: {total_predictions}")
     
-    # 生成准确率柱状图
+
     accuracy_calculator.generate_accuracy_plot(accuracy, total_predictions)
